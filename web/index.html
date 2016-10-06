@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <title>Timecode</title>
     <style>
+        html, body {
+            height: 100%;
+        }
+
         body {
             background-color: #000;
+            margin: 0;
         }
 
         .counter {
@@ -13,6 +18,15 @@
             font-size: 70px;
             color: red;
             text-align: center;
+            min-height: 100%;
+            min-width: 100%;
+            margin: 0;
+            display: table;
+        }
+
+        .counter span {
+            display: table-cell;
+            vertical-align: middle;
         }
     </style>
 </head>
