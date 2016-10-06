@@ -1,3 +1,7 @@
 FROM siboulet/websockify
 
-CMD ["8080", "10.200.10.1:4647"]
+ENV PYTHONPATH "/app/plugins"
+
+ADD ./plugins /app/plugins
+
+CMD ["8080", "--token-plugin", "tokenpass.TokenPassPlugin"]

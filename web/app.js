@@ -1,4 +1,4 @@
-const uri = "ws://localhost:8081/";
+const uri = "ws://localhost:8081/?token=10.200.10.1:4647";
 const debug = false;
 const countdownInterval = 100;
 const queryInterval = 2000;
