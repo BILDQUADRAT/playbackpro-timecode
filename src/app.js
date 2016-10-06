@@ -98,9 +98,9 @@ function close(e) {
     log("Close event");
 }
 
-function log(msg) {
+function log() {
     if(debug) {
-        console.log(msg);
+        console.log.apply(console, arguments);
     }
 }
 
