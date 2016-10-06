@@ -2,6 +2,7 @@ const uri = "ws://localhost:8081/";
 const debug = false;
 const countdownInterval = 100;
 const queryInterval = 2000;
+const reconnectInterval = 10000;
 var ws = null,
     elem = null,
     connected = false,
@@ -112,6 +113,11 @@ function error(e) {
 
 function close(e) {
     log("Close event");
+
+    // reconnect
+    setTimeout(function() {
+        ws.open(uri);
+    }, reconnectInterval);
 }
 
 function log() {
