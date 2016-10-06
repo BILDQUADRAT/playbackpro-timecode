@@ -116,6 +116,11 @@ function error(e) {
 function close(e) {
     log("Close event");
 
+    connected = false;
+    running = false;
+
+    elem.innerHTML = "";
+
     // reconnect
     setTimeout(function() {
         ws.open(uri);
