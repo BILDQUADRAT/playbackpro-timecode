@@ -92,7 +92,7 @@ function padNum(num, len) {
 }
 
 function error(e) {
-    console.err(e);
+    console.log("ERROR", e);
 }
 
 function close(e) {
