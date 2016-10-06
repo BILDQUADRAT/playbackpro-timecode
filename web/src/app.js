@@ -168,6 +168,8 @@ function log() {
 
 window.addEventListener("load", init, false);
 
+var hoverTimeout = null;
+
 // frontend UI
 jQuery(document).ready(function($) {
     $('#settings-trigger').click(function(e) {
@@ -189,5 +191,21 @@ jQuery(document).ready(function($) {
         if(e.keyCode == 13) {
             $('#settings-save').click();
         }
+    });
+
+    $('#settings-trigger').hide();
+    document.body.style.cursor = 'none';
+    $('body').mousemove(function() {
+        if(hoverTimeout) {
+            clearTimeout(hoverTimeout);
+        }
+
+        $('#settings-trigger').fadeIn();
+        document.body.style.cursor = 'auto';
+
+        hoverTimeout = setTimeout(function() {
+            $('#settings-trigger').fadeOut();
+            document.body.style.cursor = 'none';
+        }, 5000);
     });
 });
