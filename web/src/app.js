@@ -30,7 +30,9 @@ function startCounter() {
 }
 
 function restartCounter() {
-    clearInterval(interval);
+    if(interval) {
+        clearInterval(interval);
+    }
     startCounter();
 }
 
@@ -39,7 +41,7 @@ function open() {
 
     connected = true;
     doRequest();
-    startCounter();
+    restartCounter();
 }
 
 function message() {
