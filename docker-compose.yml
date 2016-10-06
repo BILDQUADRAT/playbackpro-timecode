@@ -1,0 +1,13 @@
+version: '2'
+services:
+  web:
+    build: .
+    volumes:
+    - ./src:/usr/share/nginx/html
+    ports:
+    - "8080:80"
+  socket:
+    image: siboulet/websockify
+    command: "8080 10.200.10.1:4647"
+    ports:
+    - "8081:8080"
