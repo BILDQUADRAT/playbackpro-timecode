@@ -73,7 +73,7 @@ function parseResponse(res) {
 
 function counter() {
     if(running) {
-        time -= countdownInterval;
+        time = Math.max(0, time - countdownInterval);
         elem.innerHTML = formatTimecode(time);
     }
 }
