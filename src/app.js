@@ -82,7 +82,7 @@ function formatTimecode(millis) {
     var seconds = padNum(Math.floor((millis/1000)%60), 2);
     var frames = padNum(Math.floor((millis*25/1000)%25), 2);
 
-    return hours + ':' + minutes + ':' + seconds + '.' + frames;
+    return '-' + hours + ':' + minutes + ':' + seconds + '.' + frames;
 }
 
 function padNum(num, len) {
