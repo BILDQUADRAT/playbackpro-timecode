@@ -1,6 +1,7 @@
 const uri = "ws://localhost:8081/";
 const debug = false;
 const countdownInterval = 100;
+const queryInterval = 2000;
 var ws = null, elem = null, connected = false, time = 0, interval = null;
 
 function init() {
@@ -42,7 +43,7 @@ function message() {
 
     setTimeout(function() {
         doRequest();
-    }, 5000);
+    }, queryInterval);
 }
 
 function doRequest() {
