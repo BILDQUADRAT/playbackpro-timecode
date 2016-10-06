@@ -4,4 +4,6 @@ ENV PYTHONPATH "/app/plugins"
 
 ADD ./plugins /app/plugins
 
-CMD ["8080", "--token-plugin", "tokenpass.TokenPassPlugin"]
+EXPOSE 8081
+
+CMD ["8081", "--token-plugin", "tokenpass.TokenPassPlugin"]

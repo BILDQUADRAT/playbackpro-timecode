@@ -3,10 +3,10 @@ services:
   web:
     build: ./web
     volumes:
-    - ./web:/usr/share/nginx/html
+    - ./web/src:/app
     ports:
     - "8080:80"
+    links:
+    - proxy
   proxy:
     build: ./proxy
-    ports:
-    - "8081:8080"
