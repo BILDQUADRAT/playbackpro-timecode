@@ -2,7 +2,12 @@ const uri = "ws://localhost:8081/";
 const debug = false;
 const countdownInterval = 100;
 const queryInterval = 2000;
-var ws = null, elem = null, connected = false, time = 0, interval = null;
+var ws = null,
+    elem = null,
+    connected = false,
+    running = false,
+    time = 0,
+    interval = null;
 
 function init() {
     log("Starting");
@@ -54,13 +59,23 @@ function doRequest() {
 
 function parseResponse(res) {
     log("Response: " + res);
-    time = parseTimeString(res);
+    if(res.search(/\d{2}:\d{2}:\d{2}:\d{2}/) !== -1) {
+        time = parseTimeString(res);
+        running = true;
+    } else {
+        time = -1;
+        running = false;
+        elem.innerHTML = "";
+    }
+
     restartCounter();
 }
 
 function counter() {
-    time -= countdownInterval;
-    elem.innerHTML = formatTimecode(time);
+    if(running) {
+        time -= countdownInterval;
+        elem.innerHTML = formatTimecode(time);
+    }
 }
 
 function parseTimeString(str) {
