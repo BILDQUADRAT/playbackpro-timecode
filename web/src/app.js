@@ -1,19 +1,23 @@
-const uri = "ws://" + location.host + "/remote/10.200.10.1:4647";
 const debug = false;
 const countdownInterval = 100;
 const queryInterval = 2000;
 const reconnectInterval = 10000;
 var ws = null,
+    host = '',
+    port = 4647,
     elem = null,
     connected = false,
     running = false,
     time = 0,
-    interval = null;
+    interval = null,
+    reconnectTimer = null;
 
 function init() {
     log("Starting");
 
     elem = document.getElementById('timecode');
+
+    loadSettings();
 
     ws = new Websock();
 
@@ -22,7 +26,35 @@ function init() {
     ws.on('close', close);
     ws.on('error', error);
 
+    connect();
+}
+
+function connect() {
+    if(reconnectTimer) {
+        clearTimeout(reconnectTimer);
+    }
+
+    var uri = 'ws://' + location.host + '/remote/' + host + ':' + port;
     ws.open(uri);
+}
+
+function loadSettings() {
+    host = localStorage.host || host;
+    port = localStorage.port || port
+}
+
+function saveSettings(hostArg, portArg) {
+    if(hostArg !== host || portArg !== port) {
+        ws.close();
+
+        host = hostArg;
+        port = portArg;
+
+        localStorage.host = hostArg;
+        localStorage.port = portArg;
+
+        connect();
+    }
 }
 
 function startCounter() {
@@ -40,6 +72,7 @@ function open() {
     log("Open event");
 
     connected = true;
+    elem.innerHTML = "";
     doRequest();
     restartCounter();
 }
@@ -119,11 +152,11 @@ function close(e) {
     connected = false;
     running = false;
 
-    elem.innerHTML = "";
+    elem.innerHTML = "Disconnected";
 
     // reconnect
-    setTimeout(function() {
-        ws.open(uri);
+    reconnectTimer = setTimeout(function() {
+        connect();
     }, reconnectInterval);
 }
 
@@ -134,3 +167,27 @@ function log() {
 }
 
 window.addEventListener("load", init, false);
+
+// frontend UI
+jQuery(document).ready(function($) {
+    $('#settings-trigger').click(function(e) {
+        e.preventDefault();
+
+        $('#inputHostname').val(host);
+        $('#inputPort').val(port);
+
+        $('#settings').modal('show');
+    });
+
+    $('#settings-save').click(function() {
+        saveSettings($('#inputHostname').val(), $('#inputPort').val());
+
+        $('#settings').modal('hide');
+    });
+
+    $('#settings').keydown(function(e) {
+        if(e.keyCode == 13) {
+            $('#settings-save').click();
+        }
+    });
+});
