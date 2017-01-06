@@ -16,20 +16,33 @@
             margin: 0;
         }
 
-        .counter {
+        .timeDisplay {
             font-family: "Consolas", monospace;
-            font-size: 70px;
-            color: red;
+            font-size: 140px;
             text-align: center;
-            min-height: 100%;
+            color: white;
+            height: 50%;
             min-width: 100%;
             margin: 0;
             display: table;
         }
 
-        .counter span {
+        .timeDisplay .text {
             display: table-cell;
             vertical-align: middle;
+        }
+
+        .counter {
+            color: red;
+        }
+
+        .counter label {
+            display: none;
+            float: left;
+        }
+
+        #timecode.active:before {
+            content: "PbP TC ";
         }
 
         #settings-trigger {
@@ -42,8 +55,16 @@
     </style>
 </head>
 <body>
-    <p class="counter">
-        <span id="timecode"></span>
+    <p class="timeDisplay">
+        <span class="text">
+            <span class="fa fa-clock-o"></span>
+            <span id="clock"></span>
+        </span>
+    </p>
+    <p class="timeDisplay counter">
+        <span class="text">
+            <span id="timecode"></span>
+        </span>
     </p>
 
     <a id="settings-trigger" href="#settings">
@@ -78,10 +99,12 @@
 
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/qs/dist/qs.min.js"></script>
+    <script src="/bower_components/moment/min/moment.min.js"></script>
     <script src="/include/util.js"></script>
     <script src="/include/webutil.js"></script>
     <script src="/include/base64.js"></script>
     <script src="/include/websock.js"></script>
-    <script src="/app.js"></script>
+    <script src="/app.js?x=2345"></script>
 </body>
 </html>

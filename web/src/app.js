@@ -97,10 +97,12 @@ function parseResponse(res) {
     log("Response: " + res);
     if(res.search(/\d{2}:\d{2}:\d{2}:\d{2}/) !== -1) {
         time = parseTimeString(res);
+        elem.className = "active";
         running = true;
     } else {
         time = -1;
         running = false;
+        elem.className = "";
         elem.innerHTML = "";
     }
 
@@ -152,7 +154,7 @@ function close(e) {
     connected = false;
     running = false;
 
-    elem.innerHTML = "Disconnected";
+    elem.innerHTML = "Disconnected: " + host + ':' + port;
 
     // reconnect
     reconnectTimer = setTimeout(function() {
@@ -170,8 +172,18 @@ window.addEventListener("load", init, false);
 
 var hoverTimeout = null;
 
+// clock handling
+function startClock(elem) {
+    function updateClock() {
+        elem.text(moment().format("HH:mm:ss"));
+    }
+    window.setInterval(updateClock, 100);
+}
+
 // frontend UI
 jQuery(document).ready(function($) {
+    startClock($('#clock'));
+
     $('#settings-trigger').click(function(e) {
         e.preventDefault();
 
