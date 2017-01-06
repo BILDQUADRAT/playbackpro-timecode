@@ -39,8 +39,8 @@ function connect() {
 }
 
 function loadSettings() {
-    host = localStorage.host || host;
-    port = localStorage.port || port
+    host = QS().get('host') || localStorage.host || host;
+    port = QS().get('port') || localStorage.port || port
 }
 
 function saveSettings(hostArg, portArg) {
