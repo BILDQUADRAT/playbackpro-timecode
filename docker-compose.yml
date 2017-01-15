@@ -10,8 +10,7 @@ services:
     links:
     - proxy
   proxy:
-    image: websockify
-#    build: ./proxy
+    image: mraerino/websockify-armhf:advanced
     expose:
     - "8081"
     command: ["8081", "--token-plugin", "tokenpass.TokenPassPlugin"]
