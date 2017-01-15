@@ -1,12 +1,17 @@
 version: '2'
 services:
   web:
-    build: ./web
-    volumes:
-    - ./web/src:/app
+    image: playbackpro-web
+#    build: ./web
+#    volumes:
+#    - ./web/src:/app
     ports:
-    - "8080:80"
+    - "8000:80"
     links:
     - proxy
   proxy:
-    build: ./proxy
+    image: websockify
+#    build: ./proxy
+    expose:
+    - "8081"
+    command: ["8081", "--token-plugin", "tokenpass.TokenPassPlugin"]
