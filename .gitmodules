@@ -1,0 +1,3 @@
+[submodule "proxy/websockify"]
+	path = proxy/websockify
+	url = https://github.com/novnc/websockify.git
